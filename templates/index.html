@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Добавление Шума к Изображению</title>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Добавление Шума к Изображению</h1>
+        <form method="POST" enctype="multipart/form-data">
+            <div>
+                <label for="image">Выберите изображение:</label>
+                <input type="file" name="image" id="image" required>
+            </div>
+            <div>
+                <label for="noise">Уровень шума (0.0 до 1.0):</label>
+                <input type="number" name="noise" id="noise" step="0.1" min="0.0" max="1.0" value="0.0" required>
+            </div>
+            <div class="g-recaptcha" data-sitekey="{{ site_key }}"></div>
+            <br>
+            <div>
+                <input type="submit" value="Добавить Шум">
+            </div>
+        </form>
+
+        {% if original_image %}
+            <h2>Оригинальное Изображение: {{ original_image_name }}</h2>
+            <img src="{{ original_image }}" alt="Оригинальное Изображение">
+        {% endif %}
+
+        {% if noisy_image %}
+            <h2>Зашумленное Изображение</h2>
+            <img src="{{ noisy_image }}" alt="Зашумленное Изображение">
+        {% endif %}
+
+        {% if histograms %}
+            <h2>Гистограммы</h2>
+            <img src="{{ histograms }}" alt="Гистограммы">
+        {% endif %}
+    </div>
+</body>
+</html>
