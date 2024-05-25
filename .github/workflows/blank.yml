@@ -30,7 +30,7 @@ jobs:
         
     - name: Проверка приложения
       run: |
-        curl -f localhost:8000
+        curl -f localhost:5000
 
     - name: Deploy
       run: |
