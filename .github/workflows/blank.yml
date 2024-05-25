@@ -1,4 +1,4 @@
-name: Непрерывная интеграция FastAPI
+name: Непрерывная интеграция Flask
 
 on:
   push:
@@ -26,7 +26,7 @@ jobs:
         
     - name: Сборка и запуск приложения
       run: |
-        (uvicorn main:app --host localhost &)
+        python main.py &  # Запускаем Flask приложение в фоновом режиме
         
     - name: Проверка приложения
       run: |
