@@ -1,0 +1,37 @@
+name: Непрерывная интеграция FastAPI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Настройка Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: 3.9
+        
+    - name: Установка зависимостей
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        
+    - name: Сборка и запуск приложения
+      run: |
+        (uvicorn main:app --host localhost &)
+        
+    - name: Проверка приложения
+      run: |
+        curl -f localhost:8000
+
+    - name: Deploy
+      run: |
+        curl -f https://api.render.com/deploy/srv-cp8kpu5ds78s73c5mkig?key=heJTkHJfiTA
